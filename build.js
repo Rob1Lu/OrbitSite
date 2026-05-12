@@ -12,6 +12,10 @@ const DIST_DIR = path.join(__dirname, 'dist');
 const DIST = path.join(DIST_DIR, 'index.html');
 const NM = path.join(__dirname, 'node_modules/preact');
 
+// Minimal above-fold HTML injected into #root so FCP fires from static content,
+// before Preact's JS has a chance to execute. Preact replaces it on mount.
+const STATIC_SHELL = `<div style="padding:160px 7vw 0;background:#F5EFE6"><p style="font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#5C534C;margin:0 0 24px">Studio·Lyon·Depuis 2022</p><h1 style="font-family:Fraunces,Georgia,serif;font-size:clamp(48px,8vw,96px);font-weight:400;letter-spacing:-.04em;line-height:1.02;margin:0;color:#2A2520"><em style="font-style:italic;color:#B7553C;font-weight:300">Des applications</em><br>mobiles <em style="font-style:italic;color:#B7553C;font-weight:300">conçues</em><br>avec <em style="font-style:italic;color:#B7553C;font-weight:300">soin.</em></h1></div>`;
+
 async function build() {
   const src = fs.readFileSync(SRC, 'utf-8');
   let html = src;
@@ -73,14 +77,31 @@ async function build() {
     ''
   );
 
-  // ── 6. Lazy-load below-fold images ───────────────────────────────────────
+  // ── 6. Make Google Fonts non-render-blocking ──────────────────────────────
+  // A <link rel="stylesheet"> blocks rendering until the CSS downloads.
+  // Switching to rel="preload" + onload defers it: the browser paints
+  // immediately with system fallback fonts (Times New Roman / system-ui),
+  // then swaps to Fraunces/Inter once the font file arrives.
+  html = html.replace(
+    /<link href="(https:\/\/fonts\.googleapis\.com[^"]*)"([^>]*)rel="stylesheet"([^>]*)\/>/,
+    (_, href, before, after) =>
+      `<link rel="preload" href="${href}" as="style" onload="this.onload=null;this.rel='stylesheet'">` +
+      `<noscript><link rel="stylesheet" href="${href}"></noscript>`
+  );
+
+  // ── 7. Inject static above-fold content for early FCP ────────────────────
+  // #root is empty until Preact executes, which on mobile can take 2–3 s.
+  // Putting a minimal static hero here lets the browser paint on first parse.
+  // Preact's createRoot().render() replaces this content when it runs.
+  html = html.replace(
+    '<div id="root"></div>',
+    `<div id="root">${STATIC_SHELL}</div>`
+  );
+
+  // ── 8. Lazy-load below-fold images ───────────────────────────────────────
   html = html.replace(/<img (?!.*loading=)/g, '<img loading="lazy" ');
 
-  // ── 7. Add resource hints before </head> ─────────────────────────────────
-  const resourceHints = `  <link rel="preconnect" href="https://fonts.googleapis.com" />\n  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />`;
-  // fonts preconnect is already in source; this is a no-op guard
-
-  // ── 8. Write dist ────────────────────────────────────────────────────────
+  // ── 9. Write dist ────────────────────────────────────────────────────────
   fs.mkdirSync(DIST_DIR, { recursive: true });
 
   const assetsDir = path.join(__dirname, 'assets');
@@ -102,6 +123,8 @@ async function build() {
   const appSize = Buffer.byteLength(minified, 'utf-8');
   console.log(`✓  JSX compiled & minified: ${kb(jsxSize)} → ${kb(appSize)}`);
   console.log(`✓  Preact inlined: ${kb(preactSize)} (replaced React CDN ~139 KB)`);
+  console.log(`✓  Google Fonts non-blocking (preload + onload swap)`);
+  console.log(`✓  Static hero shell injected (FCP from HTML, not JS)`);
   console.log(`✓  0 external JS requests`);
   console.log(`✓  dist/index.html written (${kb(Buffer.byteLength(html, 'utf-8'))})`);
 }
