@@ -1,0 +1,1286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Développement Application Mobile Lyon — Studio iOS & Android | Orbit Dev Studio</title>
+<meta name="description" content="Studio de développement d'applications mobiles iOS & Android basé à Lyon. Experts Flutter + Supabase, nous intervenons dans toute la France (Paris, Nantes, Bordeaux, Marseille, Toulouse, Lille) et à l'international. Devis sous 48h." />
+<meta name="keywords" content="développement application mobile Lyon, développement application Lyon, application mobile Lyon, développement mobile Lyon, agence mobile Lyon, application iOS Android Lyon, Flutter Lyon, studio mobile Lyon, agence développement mobile France, développement application Nantes, développement application Bordeaux, développement application Marseille, développement application Toulouse, développement application Lille, développement application Paris, application mobile France, studio Flutter Supabase" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://orbit.studio/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://orbit.studio/" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content="Orbit Dev Studio" />
+<meta property="og:title" content="Développement Application Mobile Lyon · iOS & Android | Orbit Dev Studio" />
+<meta property="og:description" content="Studio Flutter & Supabase basé à Lyon. 6 apps iOS & Android livrées. Actif dans toute la France et à l'international." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Orbit Dev Studio — Développement application mobile Lyon" />
+<meta name="twitter:description" content="Studio mobile Flutter & Supabase à Lyon. 6 apps iOS & Android livrées en France et à l'international." />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Orbit Dev Studio",
+  "description": "Studio de développement d'applications mobiles iOS & Android basé à Lyon. Experts Flutter et Supabase, actif en France et à l'international.",
+  "url": "https://orbit.studio",
+  "email": "roblusson40@gmail.com",
+  "foundingDate": "2022",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lyon",
+    "addressRegion": "Auvergne-Rhône-Alpes",
+    "addressCountry": "FR"
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Lyon" },
+    { "@type": "City", "name": "Paris" },
+    { "@type": "City", "name": "Nantes" },
+    { "@type": "City", "name": "Bordeaux" },
+    { "@type": "City", "name": "Marseille" },
+    { "@type": "City", "name": "Toulouse" },
+    { "@type": "City", "name": "Lille" },
+    { "@type": "City", "name": "Strasbourg" },
+    { "@type": "Country", "name": "France" }
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Développement application mobile",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Développement application iOS" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Développement application Android" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Développement Flutter" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Backend Supabase" } }
+    ]
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "40"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #F5EFE6; scroll-behavior: smooth; }
+  body { font-family: "Inter", -apple-system, system-ui, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  a { color: inherit; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: #B7553C; color: #F5EFE6; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: #EDE5D8; }
+  ::-webkit-scrollbar-thumb { background: rgba(42,37,32,0.3); border-radius: 5px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+<script type="text/babel">
+const { useState, useContext, createContext, useEffect, useRef } = React;
+
+// ─── Theme ────────────────────────────────────────────────────────────────────
+
+const T = {
+  paper: '#F5EFE6', paperDeep: '#EDE5D8',
+  ink: '#2A2520', inkSoft: '#5C534C',
+  accent: '#B7553C', accentDeep: '#9C462E', accentSoft: '#E9CCBE',
+  border: 'rgba(42,37,32,0.12)', borderDeep: 'rgba(42,37,32,0.2)',
+  pad: 96, padX: 112,
+};
+
+const Serif = { fontFamily: '"Fraunces", "Cormorant Garamond", "Times New Roman", serif', fontWeight: 400, letterSpacing: -1.2, lineHeight: 1.02 };
+
+// ─── Language context ─────────────────────────────────────────────────────────
+
+const LangCtx = createContext({ lang: 'fr', setLang: () => {} });
+const useLang = () => useContext(LangCtx);
+
+// ─── Translations ─────────────────────────────────────────────────────────────
+
+const CONTENT = {
+  fr: {
+    nav: { studio: 'Studio', services: 'Services', travaux: 'Travaux', process: 'Process', contact: 'Contact', cta: 'Démarrer un projet' },
+    hero: {
+      eyebrow: 'Studio · Lyon · Depuis 2022',
+      title: <><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>Des applications</em><br />mobiles <em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>conçues</em><br />avec <em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>soin.</em></>,
+      sub: 'Orbit est un studio de développement d\'applications mobiles basé à Lyon. Nous concevons et construisons des applications iOS & Android pour des fondateurs ambitieux — du premier wireframe au lancement sur les stores. Actifs dans toute la France et à l\'international.',
+      cta1: 'Démarrer un projet', cta2: 'Voir nos travaux',
+      stats: [{ v: '6', l: 'apps livrées' }, { v: '4.8★', l: 'note moyenne' }, { v: '< 16 sem.', l: 'délai MVP moyen' }],
+      scroll: 'Faites défiler',
+    },
+    manifesto: {
+      eyebrow: '§ 01 — Manifeste',
+      title: <>Nous croyons<br />au <em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>logiciel<br />comme<br />artisanat.</em></>,
+      p1: <>Une app mobile mérite la même attention qu'un livre relié à la main. La typographie respire. Les transitions ont un poids. Chaque détail signale au visiteur : <em style={{ color: T.accent }}>quelqu'un s'est soucié de moi.</em></>,
+      p2: 'C\'est une posture qui demande du temps. Nous travaillons sur peu de projets, longtemps, en équipes restreintes. Basés à Lyon, nous opérons également à Paris, Nantes, Bordeaux, Marseille et au-delà. Nous refusons les briefs sans âme. Nous restons après le lancement.',
+      sig: '— Robin,', role: 'fondateur',
+    },
+    services: {
+      eyebrow: '§ 02 — Services',
+      title: <>Quatre disciplines,<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>une équipe.</em></>,
+      link: 'Demander un devis →',
+      items: [
+        { n: '01', t: 'Stratégie produit', d: 'Cadrage, recherche utilisateur, atelier de positionnement, roadmap MVP.', tags: ['Discovery', 'Roadmap', 'Priorisation'] },
+        { n: '02', t: 'Design système', d: 'Identité visuelle, design system mobile, prototypes interactifs haute-fidélité.', tags: ['Design system', 'Prototypage', 'Identité'] },
+        { n: '03', t: 'Développement Flutter', d: 'iOS & Android natifs depuis une base unique. Performance, animations sur mesure.', tags: ['Flutter', 'iOS', 'Android'] },
+        { n: '04', t: 'Backend & infra', d: 'Supabase, authentification, paiements Stripe, notifications push, observabilité.', tags: ['Supabase', 'Stripe', 'Postgres'] },
+      ],
+    },
+    portfolio: {
+      eyebrow: '§ 03 — Travaux récents',
+      title: <>Quatre apps,<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>quatre univers.</em></>,
+      link: 'Voir tous les projets →',
+    },
+    stack: {
+      eyebrow: '§ 04 — Stack technique',
+      title: <>Flutter +<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>Supabase.</em></>,
+      p1: 'Flutter pour une seule base de code performante sur iOS et Android. Supabase pour un backend complet — auth, base de données, stockage, temps réel — sans vendor lock-in.',
+      p2: 'Moins de complexité, plus de vélocité. Nos équipes maîtrisent cette stack de bout en bout.',
+      metrics: [
+        { v: '1 codebase', l: 'iOS & Android depuis Flutter' },
+        { v: '0 server', l: 'Infrastructure Supabase managée' },
+        { v: '<48h', l: 'De l\'idée au prototype' },
+        { v: '95%', l: 'Qualité native Flutter' },
+      ],
+    },
+    process: {
+      eyebrow: '§ 05 — Process',
+      title: <>Quatre actes,<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>seize semaines</em> en moyenne.</>,
+      steps: [
+        { n: 'I', t: 'Cadrage', d: 'Un atelier de deux jours pour définir vision, audience et succès. Nous repartons avec un brief co-écrit.', dur: '1–2 sem.' },
+        { n: 'II', t: 'Design', d: 'Recherche, wireframes, design system, prototypes haute-fidélité. Itérations hebdo, validation continue.', dur: '4–8 sem.' },
+        { n: 'III', t: 'Build', d: 'Développement Flutter, backend Supabase. Releases internes hebdomadaires sur TestFlight et Play Console.', dur: '8–16 sem.' },
+        { n: 'IV', t: 'Lancement', d: 'Préparation stores, soft-launch, mesure, itération. Nous restons en support 3 mois inclus.', dur: '2 sem. + 3 mois' },
+      ],
+      act: 'ACTE',
+    },
+    stats: [
+      { v: '6', l: 'Apps livrées depuis 2022' },
+      { v: '4.8★', l: 'Note moyenne sur les stores' },
+      { v: '< 16 sem.', l: 'Délai MVP moyen' },
+    ],
+    testimonials: {
+      eyebrow: '§ 06 — On dit de nous',
+      items: [
+        { q: 'Bravn a transformé ma pratique : je gère mes étudiants, leurs plans nutrition et mes revenus depuis une seule app.', a: 'Thomas R.', r: 'Coach personnel, Paris' },
+        { q: 'Prism est la seule app budget que j\'ai gardée plus de 3 mois. L\'auto-catégorisation apprend de mes corrections — c\'est magique.', a: 'Sophie M.', r: 'Utilisatrice Prism, Lyon' },
+        { q: 'Une app qui fait honneur à la poésie du quotidien. Je l\'ouvre chaque soir depuis 6 mois et je n\'ai pas manqué un seul jour.', a: 'Élise V.', r: 'Utilisatrice Lucioles, Bordeaux' },
+      ],
+    },
+    faq: {
+      eyebrow: '§ 07 — FAQ',
+      title: <>Questions<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>fréquentes.</em></>,
+      items: [
+        { q: 'Combien de temps prend un projet ?', a: 'Un MVP solide se livre en 1 à 4 semaines. Une v1 ambitieuse, 4 semaines à 6 mois. On cadre précisément lors de la phase Découverte. Mais chaque projet est unique, venez discuter de votre idée pour avoir une estimation plus exacte.' },
+        { q: 'Travaillez-vous avec des startups early-stage ?', a: 'Oui, c\'est même notre cœur de cible. Nous savons travailler avec des budgets contraints et faire les bons compromis.' },
+        { q: 'Pourquoi Flutter plutôt que natif ?', a: 'Flutter offre 95% de la qualité du natif pour 50% du temps de développement. Pour 90% des projets, c\'est le bon choix.' },
+        { q: 'Que se passe-t-il après le lancement ?', a: 'Nous proposons un contrat de maintenance mensuel : corrections de bugs, mises à jour OS, petites évolutions. Vous gardez l\'équipe qui connaît votre code.' },
+        { q: 'Vous travaillez uniquement à Lyon ?', a: 'Non — Lyon est notre base, mais nous intervenons dans toute la France (Paris, Nantes, Bordeaux, Marseille, Toulouse, Lille, Strasbourg...) et à l\'international.' },
+      ],
+    },
+    cta: {
+      eyebrow: '§ 08 — Prochaine cohorte · Été 2026',
+      title: <>Construisons<br />quelque chose <em style={{ fontStyle: 'italic', fontWeight: 300 }}>de bien.</em></>,
+      sub: 'Nous prenons trois nouveaux projets cet été. Si vous portez une idée mobile sérieuse, parlons-en — un appel découverte de 30 minutes, sans engagement.',
+      btn1: 'Réserver un appel', btn2: 'roblusson40@gmail.com',
+    },
+    footer: {
+      tagline: 'Studio de développement d\'applications mobiles basé à Lyon. iOS & Android pour des fondateurs ambitieux — actif dans toute la France et à l\'international.',
+      cta: 'Démarrer un projet',
+      cols: [
+        { t: 'Studio', l: [{ label: 'À propos', href: '#studio' }, { label: 'Travaux', href: '#travaux' }, { label: 'Process', href: '#process' }] },
+        { t: 'Contact', l: [{ label: 'roblusson40@gmail.com', href: 'mailto:roblusson40@gmail.com' }, { label: '+33 6 84 58 15 59', href: 'tel:+33684581559' }, { label: 'Lyon, France', href: '#' }] },
+      ],
+      legal: '© 2026 Orbit Dev Studio. Tous droits réservés.',
+      links: 'Mentions légales · Confidentialité · CGU',
+    },
+  },
+  en: {
+    nav: { studio: 'Studio', services: 'Services', travaux: 'Work', process: 'Process', contact: 'Contact', cta: 'Start a project' },
+    hero: {
+      eyebrow: 'Studio · Lyon · Since 2022',
+      title: <><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>Mobile apps</em><br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>designed</em><br />with <em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>care.</em></>,
+      sub: 'Orbit is a mobile app development studio based in Lyon. We design and build iOS & Android apps for ambitious founders — from the first wireframe to store launch. Active across France and internationally.',
+      cta1: 'Start a project', cta2: 'See our work',
+      stats: [{ v: '6', l: 'apps shipped' }, { v: '4.8★', l: 'avg rating' }, { v: '< 16 wks', l: 'avg MVP timeline' }],
+      scroll: 'Scroll down',
+    },
+    manifesto: {
+      eyebrow: '§ 01 — Manifesto',
+      title: <>We believe in<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>software<br />as<br />craft.</em></>,
+      p1: <>A mobile app deserves the same care as a hand-bound book. Typography breathes. Transitions carry weight. Every detail signals to the user: <em style={{ color: T.accent }}>someone cared about me.</em></>,
+      p2: 'This posture demands time. We work on few projects, for a long time, in small teams. Based in Lyon, we collaborate with founders in Paris, Nantes, Bordeaux, Marseille and beyond. We refuse soulless briefs. We stay after launch.',
+      sig: '— Robin,', role: 'founder',
+    },
+    services: {
+      eyebrow: '§ 02 — Services',
+      title: <>Four disciplines,<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>one team.</em></>,
+      link: 'Request a quote →',
+      items: [
+        { n: '01', t: 'Product strategy', d: 'Framing, user research, positioning workshop, MVP roadmap.', tags: ['Discovery', 'Roadmap', 'Prioritisation'] },
+        { n: '02', t: 'Design system', d: 'Visual identity, mobile design system, high-fidelity interactive prototypes.', tags: ['Design system', 'Prototyping', 'Identity'] },
+        { n: '03', t: 'Flutter development', d: 'Native iOS & Android from a single codebase. Performance, custom animations.', tags: ['Flutter', 'iOS', 'Android'] },
+        { n: '04', t: 'Backend & infra', d: 'Supabase, auth, Stripe payments, push notifications, observability.', tags: ['Supabase', 'Stripe', 'Postgres'] },
+      ],
+    },
+    portfolio: {
+      eyebrow: '§ 03 — Recent work',
+      title: <>Four apps,<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>four worlds.</em></>,
+      link: 'See all projects →',
+    },
+    stack: {
+      eyebrow: '§ 04 — Tech stack',
+      title: <>Flutter +<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>Supabase.</em></>,
+      p1: 'Flutter for a single performant codebase on iOS and Android. Supabase for a complete backend — auth, database, storage, real-time — with no vendor lock-in.',
+      p2: 'Less complexity, more velocity. Our teams master this stack end to end.',
+      metrics: [
+        { v: '1 codebase', l: 'iOS & Android from Flutter' },
+        { v: '0 server', l: 'Managed Supabase infra' },
+        { v: '<48h', l: 'From idea to prototype' },
+        { v: '95%', l: 'Native Flutter quality' },
+      ],
+    },
+    process: {
+      eyebrow: '§ 05 — Process',
+      title: <>Four acts,<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>sixteen weeks</em> on average.</>,
+      steps: [
+        { n: 'I', t: 'Framing', d: 'A two-day workshop to define vision, audience and success. We leave with a co-written brief.', dur: '1–2 wks' },
+        { n: 'II', t: 'Design', d: 'Research, wireframes, design system, high-fidelity prototypes. Weekly iterations, continuous validation.', dur: '4–8 wks' },
+        { n: 'III', t: 'Build', d: 'Flutter development, Supabase backend. Weekly internal releases on TestFlight and Play Console.', dur: '8–16 wks' },
+        { n: 'IV', t: 'Launch', d: 'Store prep, soft-launch, measurement, iteration. We stay in support for 3 included months.', dur: '2 wks + 3 mo' },
+      ],
+      act: 'ACT',
+    },
+    stats: [
+      { v: '6', l: 'Apps shipped since 2022' },
+      { v: '4.8★', l: 'Avg store rating' },
+      { v: '< 16 wks', l: 'Avg MVP timeline' },
+    ],
+    testimonials: {
+      eyebrow: '§ 06 — What clients say',
+      items: [
+        { q: 'Bravn transformed my practice: I manage my students, their nutrition plans and my revenue from a single app. It\'s incredible.', a: 'Thomas R.', r: 'Personal coach, Paris' },
+        { q: 'Prism is the only budget app I\'ve kept for more than 3 months. The auto-categorisation learns from my edits — it\'s magic.', a: 'Sophie M.', r: 'Prism user, Lyon' },
+        { q: 'An app that honours the poetry of everyday life. I open it every evening and haven\'t missed a single day in 6 months.', a: 'Élise V.', r: 'Lucioles user, Bordeaux' },
+      ],
+    },
+    faq: {
+      eyebrow: '§ 07 — FAQ',
+      title: <>Frequently<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>asked questions.</em></>,
+      items: [
+        { q: 'How long does a project take?', a: 'A solid MVP ships in 1 to 4 weeks. An ambitious v1, 4 weeks to 6 months. We scope precisely during the Discovery phase. But every project is unique — come talk about your idea for a more accurate estimate.' },
+        { q: 'Do you work with early-stage startups?', a: 'Yes — that\'s our sweet spot. We know how to work with constrained budgets and make the right trade-offs.' },
+        { q: 'Why Flutter instead of native?', a: 'Flutter delivers 95% of native quality in 50% of development time. For 90% of projects, it\'s the right call.' },
+        { q: 'What happens after launch?', a: 'We offer monthly maintenance contracts: bug fixes, OS updates, small evolutions. You keep the team that knows your code.' },
+        { q: 'Do you only work in Lyon?', a: 'No — Lyon is our base, but we work with clients across France (Paris, Nantes, Bordeaux, Marseille, Toulouse, Lille, Strasbourg…) and internationally.' },
+      ],
+    },
+    cta: {
+      eyebrow: '§ 08 — Next cohort · Summer 2026',
+      title: <>Let's build<br />something <em style={{ fontStyle: 'italic', fontWeight: 300 }}>great.</em></>,
+      sub: "We're taking three new projects this summer. If you're carrying a serious mobile idea, let's talk — a 30-minute discovery call, no commitment.",
+      btn1: 'Book a call', btn2: 'roblusson40@gmail.com',
+    },
+    footer: {
+      tagline: 'Mobile app development studio based in Lyon. iOS & Android for ambitious founders — active across France and internationally.',
+      cta: 'Start a project',
+      cols: [
+        { t: 'Studio', l: [{ label: 'About', href: '#studio' }, { label: 'Work', href: '#travaux' }, { label: 'Process', href: '#process' }] },
+        { t: 'Contact', l: [{ label: 'roblusson40@gmail.com', href: 'mailto:roblusson40@gmail.com' }, { label: '+33 6 84 58 15 59', href: 'tel:+33684581559' }, { label: 'Lyon, France', href: '#' }] },
+      ],
+      legal: '© 2026 Orbit Dev Studio. All rights reserved.',
+      links: 'Legal · Privacy · Terms',
+    },
+  },
+};
+
+// ─── Color utilities ──────────────────────────────────────────────────────────
+
+function parseColor(h) {
+  if (h.startsWith('rgb')) { const m = h.match(/\d+/g).map(Number); return [m[0], m[1], m[2]]; }
+  const s = h.replace('#', '');
+  return [parseInt(s.slice(0,2),16), parseInt(s.slice(2,4),16), parseInt(s.slice(4,6),16)];
+}
+function mix(a, b, r) {
+  const pa = parseColor(a), pb = parseColor(b);
+  const m = (i) => Math.round(pa[i]*(1-r)+pb[i]*r);
+  return `rgb(${m(0)},${m(1)},${m(2)})`;
+}
+
+// ─── Apps data ────────────────────────────────────────────────────────────────
+
+const OrbitApps = [
+  {
+    slug: 'bravn', name: 'Bravn', tag: 'Coaching & fitness', year: '2025', duration: '20 sem.',
+    color: '#DDE3EC', accentTone: '#1E2D3A', stores: { apple: 'https://apps.apple.com/us/app/bravn/id6753893352', google: 'https://play.google.com/store/apps/details?id=fr.carl.bravn&pcampaignid=web_share' },
+    screenshots: { home: 'assets/bravn-1.jpeg', detail: 'assets/bravn-2.jpeg', list: 'assets/bravn-3.jpeg' },
+    blurb: 'Plateforme de coaching fitness multi-rôles : gestion d\'étudiants, plans nutritionnels CIQUAL et marketplace.',
+    context: { fr: 'Bravn connecte coachs sportifs et étudiants dans un écosystème complet — séances programmées avec suivi vidéo, plans nutritionnels basés sur la base CIQUAL, marketplace de programmes et équipements, abonnements in-app via RevenueCat. Une application à trois rôles (coach, étudiant, admin) pensée pour des professionnels exigeants.', en: 'Bravn connects sports coaches and students in a complete ecosystem — scheduled sessions with video tracking, nutrition plans based on the CIQUAL database, marketplace for programmes and equipment, in-app subscriptions via RevenueCat. A three-role application (coach, student, admin) built for demanding professionals.' },
+    role: ['Design système', 'Dev Flutter', 'RevenueCat', 'Intégration REST'],
+    platforms: ['iOS', 'Android'],
+    metrics: [
+      { v: '3', l: 'Rôles utilisateur distincts' }, { v: '4', l: 'Niveaux d\'abonnement RevenueCat' },
+      { v: 'CIQUAL', l: 'Base nutritionnelle officielle' }, { v: 'GoRouter', l: 'Navigation role-based typée' },
+    ],
+    clientTestimonial: {
+      text: { fr: 'Bravn a transformé ma pratique : je gère mes étudiants, leurs plans nutrition et mes revenus depuis une seule app. C\'est devenu le cœur de mon activité.', en: 'Bravn transformed my practice: I manage my students, their nutrition plans and my revenue from a single app. It\'s become the heart of my business.' },
+      author: 'Thomas R.', role: 'Coach personnel, Paris',
+    },
+    userTestimonials: [
+      { text: { fr: 'Je suis mon programme directement depuis l\'app. Voir mes progrès semaine par semaine m\'a donné une motivation que je n\'avais jamais eu avec un tableau Excel.', en: 'I follow my training plan right from the app. Seeing my weekly progress gave me motivation I never had with a spreadsheet.' }, author: 'Lucas B.', role: 'Étudiant, Bravn' },
+      { text: { fr: 'Mon coach ajuste mes macros à distance en quelques secondes. La connexion entre notre suivi est fluide — j\'ai l\'impression d\'avoir un vrai partenaire sportif.', en: 'My coach adjusts my macros remotely in seconds. The connection between our tracking is seamless — it feels like having a real fitness partner.' }, author: 'Camille F.', role: 'Étudiante, Bravn' },
+    ],
+  },
+  {
+    slug: 'shotpro', name: 'ShotPro', tag: 'Analyse vidéo · Sport de tir', year: '2025', duration: '12 sem.',
+    color: '#EAE5DD', accentTone: '#2E2418', stores: { apple: 'https://apps.apple.com/fr/app/shotpro/id6749893011', google: 'https://play.google.com/store/apps/details?id=fr.lyricus.shotpro&pcampaignid=web_share' },
+    screenshots: { home: 'assets/shotpro-1.jpeg', detail: 'assets/shotpro-2.jpeg', list: 'assets/shotpro-3.jpeg' },
+    blurb: 'App d\'analyse vidéo pour tireurs sportifs — incrustation FFmpeg de réticules personnalisables, frame par frame.',
+    context: { fr: 'ShotPro résout un problème précis : analyser sa technique de tir sans coach. L\'app utilise FFmpeg pour incruster des réticules (viseur croisé ou point) sur les vidéos importées, avec contrôle de taille, opacité et position en temps réel. Un outil de niche, techniquement exigeant.', en: 'ShotPro solves one precise problem: analysing your shooting technique without a coach. The app uses FFmpeg to overlay crosshairs (cross or dot) on imported videos, with real-time control of size, opacity and position. A niche tool with serious technical demands.' },
+    role: ['Design produit', 'Dev Flutter', 'FFmpeg', 'Traitement vidéo'],
+    platforms: ['iOS', 'Android'],
+    metrics: [
+      { v: 'FFmpeg', l: 'Encodage H.264 CRF 18' }, { v: '2', l: 'Modes réticule (viseur / point)' },
+      { v: '<30s', l: 'Traitement d\'une vidéo 3 min' }, { v: '100%', l: 'Contrôle de position normalisé' },
+    ],
+    clientTestimonial: {
+      text: { fr: 'Nous recommandons ShotPro à tous nos membres pour l\'entraînement individuel. L\'analyse vidéo frame par frame donne un retour que même un coach ne peut pas toujours fournir sur le pas de tir.', en: 'We recommend ShotPro to all our members for solo training. The frame-by-frame video analysis gives feedback that even a coach can\'t always provide on the range.' },
+      author: 'Pierre-Antoine M.', role: 'Président, Club de Tir de Lyon',
+    },
+    userTestimonials: [
+      { text: { fr: 'Enfin un outil pour analyser mon tir seul. La précision du placement du réticule est bluffante.', en: 'Finally a tool to analyse my shooting solo. The precision of the crosshair placement is stunning.' }, author: 'Marc D.', role: 'Tireur IPSC, Lyon' },
+      { text: { fr: 'J\'ai identifié une micro-hésitation dans mon déclenchement que même mon entraîneur n\'avait pas vue. L\'encodage FFmpeg est rapide, l\'interface ne fait pas dans le superflu.', en: 'I spotted a micro-hesitation in my trigger pull that my coach hadn\'t even noticed. The FFmpeg encoding is fast, the interface is straight to the point.' }, author: 'Julien K.', role: 'Tireur sportif, Grenoble' },
+    ],
+  },
+  {
+    slug: 'prism', name: 'Prism', tag: 'Fintech · Budget personnel', year: '2026', duration: '16 sem.',
+    color: '#DED9EF', accentTone: '#1E1A30', stores: { apple: '#' },
+    screenshots: { home: 'assets/prism-1.png', detail: 'assets/prism-3.png', list: 'assets/prism-4.png' },
+    blurb: 'Gestionnaire de budget premium — connexion bancaire OAuth, catégorisation intelligente et analytics 12 mois.',
+    context: { fr: 'Prism comble le vide entre les apps budget génériques et les outils premium. Connexion OAuth aux grandes banques françaises (LCL, Revolut, BoursoBank) via l\'API Powens, catégorisation automatique par règles mots-clés avec apprentissage, visualisations analytics sur 12 mois. Architecture offline-first SQLite/Drift v6.', en: 'Prism fills the gap between generic budget apps and premium tools. OAuth connection to major French banks (LCL, Revolut, BoursoBank) via the Powens API, automatic keyword-rule categorisation with learning, 12-month analytics visualisations. Offline-first architecture with SQLite/Drift v6.' },
+    role: ['Design produit', 'Dev Flutter', 'Powens API', 'Offline-first SQLite'],
+    platforms: ['iOS'],
+    metrics: [
+      { v: '3+', l: 'Banques connectées via OAuth' }, { v: 'v6', l: 'Migrations SQLite sans friction' },
+      { v: '12M', l: 'Historique analytique glissant' }, { v: '0', l: 'Donnée envoyée à nos serveurs' },
+    ],
+    userTestimonials: [
+      { text: { fr: 'Prism est la seule app budget que j\'ai gardée plus de 3 mois. L\'auto-catégorisation apprend de mes corrections — c\'est magique.', en: 'Prism is the only budget app I\'ve kept for more than 3 months. The auto-categorisation learns from my edits — it\'s magic.' }, author: 'Sophie M.', role: 'Utilisatrice, Lyon' },
+      { text: { fr: 'J\'ai essayé 5 apps avant Prism. C\'est la seule qui ne cherche pas à me vendre des services financiers. Juste mes données, présentées avec clarté.', en: 'I tried 5 apps before Prism. It\'s the only one that doesn\'t try to sell me financial products. Just my data, presented clearly.' }, author: 'Antoine L.', role: 'Freelance, Paris' },
+      { text: { fr: 'La connexion BoursoBank en 30 secondes, l\'historique sur 12 mois — ça m\'a ouvert les yeux sur mes dépenses. J\'ai économisé 200€/mois depuis.', en: 'BoursoBank connected in 30 seconds, 12 months of history — it opened my eyes on my spending. I\'ve saved €200/month since.' }, author: 'Margot D.', role: 'Étudiante, Bordeaux' },
+    ],
+  },
+  {
+    slug: 'lucioles', name: 'Lucioles', tag: 'Mémoire & géographie émotionnelle', year: '2026', duration: '14 sem.',
+    color: '#C8D0DC', accentTone: '#0E1822', stores: { apple: '#', google: '#' },
+    screenshots: { home: 'assets/lucioles-1.png', detail: 'assets/lucioles-2.png', list: 'assets/lucioles-3.png' },
+    blurb: 'Atlas émotionnel personnel — chaque souvenir géolocalisé devient une luciole sur une carte nocturne partagée.',
+    context: { fr: 'Lucioles est né d\'une question simple : et si on cartographiait ce qui nous touche chaque jour dans notre quartier ? Un journal quotidien géolocalisé qui fait apparaître les souvenirs comme des lucioles dorées sur une carte OpenStreetMap nocturne. Modération automatique via Supabase Edge Functions, couche communautaire, auth OAuth2, multilingue FR/EN/ES.', en: 'Lucioles was born from a simple question: what if we mapped what moves us every day in our neighbourhood? A daily geolocated journal that makes memories appear as golden fireflies on a dark OpenStreetMap. Automatic moderation via Supabase Edge Functions, community layer, OAuth2 auth, multilingual FR/EN/ES.' },
+    role: ['Design système', 'Dev Flutter', 'Supabase', 'Edge Functions'],
+    platforms: ['iOS', 'Android'],
+    metrics: [
+      { v: '3', l: 'Langues (FR · EN · ES)' }, { v: 'Auto', l: 'Modération via Edge Functions' },
+      { v: 'OAuth2', l: 'Google · Apple · Email (PKCE)' }, { v: '0', l: 'Serveur managé — 100% Supabase' },
+    ],
+    userTestimonials: [
+      { text: { fr: 'Une app qui fait honneur à la poésie du quotidien. Je l\'ouvre chaque soir depuis 6 mois et je n\'ai pas manqué un seul jour.', en: 'An app that honours the poetry of everyday life. I open it every evening and haven\'t missed a single day in 6 months.' }, author: 'Élise V.', role: 'Utilisatrice, Bordeaux' },
+      { text: { fr: 'Je voyage beaucoup pour le travail. Lucioles est devenu mon journal émotionnel — chaque ville que je traverse s\'allume doucement sur ma carte.', en: 'I travel a lot for work. Lucioles became my emotional journal — each city I pass through lights up softly on my map.' }, author: 'Thomas A.', role: 'Voyageur, Paris' },
+      { text: { fr: 'Mes amis et moi partageons nos spots favoris de Lyon. C\'est poétique, c\'est simple, c\'est beau.', en: 'My friends and I share our favourite spots in Lyon. It\'s poetic, it\'s simple, it\'s beautiful.' }, author: 'Sarah M.', role: 'Utilisatrice, Lyon' },
+    ],
+  },
+];
+
+// ─── Phone screen art ─────────────────────────────────────────────────────────
+
+function ScreenArt({ app, variant, ink, dark, bg, fade, fadeStrong, w }) {
+  const pad = w * 0.08;
+  const top = w * 0.22;
+  const screens = {
+    bravn: {
+      home: () => (
+        <>
+          <div style={{ position: 'absolute', top, left: pad, right: pad, display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+            <div>
+              <div style={{ fontSize: 10, color: ink, opacity: .55, fontWeight: 600, letterSpacing: 1 }}>BONJOUR, COACH</div>
+              <div style={{ fontSize: 20, color: ink, fontWeight: 600, marginTop: 4, fontFamily: '"Fraunces", serif', letterSpacing: -0.4 }}>Mes étudiants</div>
+            </div>
+            <div style={{ width: 28, height: 28, borderRadius: 14, background: fade }} />
+          </div>
+          {[{ n: 'Lucas B.', s: 'Séance ce soir · Force', p: 0.7 }, { n: 'Inès M.', s: 'Nutrition validée', p: 1.0 }, { n: 'Tom K.', s: 'Séance demain · Cardio', p: 0.4 }].map((st, i) => (
+            <div key={i} style={{ position: 'absolute', top: top + 56 + i * 52, left: pad, right: pad, height: 44, borderRadius: 10, background: fade, display: 'flex', alignItems: 'center', padding: '0 12px', gap: 10 }}>
+              <div style={{ width: 30, height: 30, borderRadius: 15, background: mix(bg, i % 2 ? '#3a5a7a' : '#2a3a50', 0.28), flexShrink: 0 }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 11, color: ink, fontWeight: 600 }}>{st.n}</div>
+                <div style={{ fontSize: 8, color: ink, opacity: 0.55, marginTop: 2 }}>{st.s}</div>
+              </div>
+              <div style={{ width: 32, height: 3, borderRadius: 2, background: mix(bg, '#000', 0.1) }}>
+                <div style={{ width: `${st.p * 100}%`, height: '100%', borderRadius: 2, background: ink }} />
+              </div>
+            </div>
+          ))}
+          <div style={{ position: 'absolute', bottom: pad, left: pad, right: pad, height: 36, borderRadius: 18, background: ink, display: 'flex', alignItems: 'center', justifyContent: 'center', color: bg, fontSize: 11, fontWeight: 600 }}>+ Nouvelle séance</div>
+        </>
+      ),
+      detail: () => (
+        <>
+          <div style={{ position: 'absolute', top: top - 4, left: pad, fontSize: 14, color: ink }}>←</div>
+          <div style={{ position: 'absolute', top: top + 12, left: pad, fontSize: 10, color: ink, opacity: .55, letterSpacing: 1, fontWeight: 600 }}>SÉANCE · LUCAS B.</div>
+          <div style={{ position: 'absolute', top: top + 28, left: pad, right: pad, fontSize: 20, color: ink, fontFamily: '"Fraunces", serif', fontWeight: 500, letterSpacing: -0.4 }}>Force — Lundi</div>
+          {['Squat', 'Développé couché', 'Tractions', 'Rowing haltère'].map((ex, i) => (
+            <div key={ex} style={{ position: 'absolute', top: top + 68 + i * 42, left: pad, right: pad, height: 36, borderRadius: 8, background: fade, display: 'flex', alignItems: 'center', padding: '0 12px', gap: 8 }}>
+              <div style={{ width: 10, height: 10, borderRadius: 5, background: i < 2 ? ink : mix(bg, '#000', 0.18), flexShrink: 0 }} />
+              <div style={{ flex: 1, fontSize: 10, color: ink, fontWeight: 600 }}>{ex}</div>
+              <div style={{ fontSize: 9, color: ink, opacity: 0.6 }}>{['4×8 · 80kg', '4×10 · 60kg', '3×max', '3×12 · 50kg'][i]}</div>
+            </div>
+          ))}
+          <div style={{ position: 'absolute', bottom: pad, left: pad, right: pad, height: 36, borderRadius: 18, background: ink, color: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 600 }}>Démarrer</div>
+        </>
+      ),
+      list: () => (
+        <>
+          <div style={{ position: 'absolute', top, left: pad, fontSize: 22, color: ink, fontFamily: '"Fraunces", serif', fontWeight: 500, letterSpacing: -0.4 }}>Nutrition</div>
+          <div style={{ position: 'absolute', top: top + 38, left: pad, right: pad, padding: '12px 14px', borderRadius: 10, background: fade }}>
+            <div style={{ fontSize: 9, color: ink, opacity: 0.55, fontWeight: 600 }}>AUJOURD'HUI · KCAL</div>
+            <div style={{ fontSize: 28, color: ink, fontFamily: '"Fraunces", serif', fontWeight: 500, marginTop: 4 }}>1 840</div>
+            <div style={{ fontSize: 9, color: ink, opacity: 0.45 }}>/ 2 200 kcal objectif</div>
+            <div style={{ marginTop: 8, height: 4, borderRadius: 2, background: mix(bg, '#000', 0.1) }}><div style={{ width: '84%', height: '100%', borderRadius: 2, background: ink }} /></div>
+          </div>
+          {[['Protéines', '148g', '180g'], ['Glucides', '210g', '250g'], ['Lipides', '58g', '70g']].map(([n, v, t], i) => (
+            <div key={n} style={{ position: 'absolute', top: top + 122 + i * 46, left: pad, right: pad, height: 38, borderRadius: 8, background: fade, display: 'flex', alignItems: 'center', padding: '0 12px' }}>
+              <div style={{ flex: 1, fontSize: 10, color: ink, fontWeight: 600 }}>{n}</div>
+              <div style={{ fontSize: 10, color: ink }}>{v} <span style={{ opacity: 0.45 }}>/ {t}</span></div>
+            </div>
+          ))}
+        </>
+      ),
+    },
+    shotpro: {
+      home: () => (
+        <>
+          <div style={{ position: 'absolute', top: top - 6, left: pad, right: pad, textAlign: 'center' }}>
+            <div style={{ fontSize: 18, color: ink, fontFamily: '"Fraunces", serif', fontWeight: 500, letterSpacing: -0.4 }}>ShotPro</div>
+            <div style={{ fontSize: 9, color: ink, opacity: 0.45, marginTop: 2, letterSpacing: 1 }}>ANALYSE DE TIR</div>
+          </div>
+          {[{ icon: '▶', label: 'Importer une vidéo', sub: 'MP4, MOV — max 3 min', primary: true }, { icon: '◎', label: 'Régler le réticule', sub: 'Viseur · Point · Opacité', primary: false }, { icon: '⊞', label: 'Mes vidéos', sub: '4 analyses enregistrées', primary: false }].map((it, i) => (
+            <div key={it.label} style={{ position: 'absolute', top: top + 24 + i * 68, left: pad, right: pad, height: 56, borderRadius: 12, background: it.primary ? ink : fade, display: 'flex', alignItems: 'center', padding: '0 16px', gap: 14 }}>
+              <div style={{ fontSize: 16, color: it.primary ? bg : ink, opacity: it.primary ? 1 : 0.7, width: 20 }}>{it.icon}</div>
+              <div><div style={{ fontSize: 11, fontWeight: 600, color: it.primary ? bg : ink }}>{it.label}</div><div style={{ fontSize: 9, color: it.primary ? bg : ink, opacity: 0.6, marginTop: 2 }}>{it.sub}</div></div>
+            </div>
+          ))}
+          <div style={{ position: 'absolute', bottom: pad + 28, left: pad, right: pad, fontSize: 9, color: ink, opacity: 0.35, textAlign: 'center' }}>Dernière analyse il y a 2 jours</div>
+        </>
+      ),
+      detail: () => (
+        <>
+          <div style={{ position: 'absolute', top: top - 4, left: pad, fontSize: 14, color: ink }}>←</div>
+          <div style={{ position: 'absolute', top: top + 12, left: pad, fontSize: 10, color: ink, opacity: .55, letterSpacing: 1, fontWeight: 600 }}>ANALYSE · 00:42</div>
+          <div style={{ position: 'absolute', top: top + 28, left: pad, right: pad, height: w * 0.62, borderRadius: 10, background: mix(bg, '#0a0c12', 0.78), overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: '30%', left: '15%', width: '55%', height: '45%', borderRadius: 2, background: 'rgba(255,255,255,0.04)' }} />
+            <div style={{ position: 'absolute', top: '50%', left: '40%', transform: 'translate(-50%,-50%)' }}>
+              <div style={{ position: 'absolute', top: '50%', left: 0, width: 28, height: 1, background: 'rgba(255,70,70,0.92)' }} />
+              <div style={{ position: 'absolute', top: 0, left: '50%', width: 1, height: 28, background: 'rgba(255,70,70,0.92)' }} />
+              <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: 7, height: 7, borderRadius: '50%', border: '1px solid rgba(255,70,70,0.92)' }} />
+            </div>
+            <div style={{ position: 'absolute', bottom: 6, left: 8, fontSize: 8, color: 'rgba(255,255,255,0.65)', fontWeight: 600 }}>TRAME 127 / 240</div>
+          </div>
+          <div style={{ position: 'absolute', top: top + 32 + w * 0.62, left: pad, right: pad }}>
+            <div style={{ fontSize: 9, color: ink, opacity: .55, letterSpacing: 1, fontWeight: 600 }}>RÉTICULE</div>
+            <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+              {['Taille 80%', 'Opacité 90%', 'Position'].map((ctrl, i) => (
+                <div key={ctrl} style={{ flex: 1, height: 28, borderRadius: 6, background: i === 2 ? ink : fade, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 8, fontWeight: 600, color: i === 2 ? bg : ink }}>{ctrl}</div>
+              ))}
+            </div>
+          </div>
+        </>
+      ),
+      list: () => (
+        <>
+          <div style={{ position: 'absolute', top, left: pad, fontSize: 22, color: ink, fontFamily: '"Fraunces", serif', fontWeight: 500, letterSpacing: -0.4 }}>Mes vidéos</div>
+          {[{ n: 'Séance 9 mai', d: '1:42 · Viseur', date: 'Auj.' }, { n: 'Séance 7 mai', d: '2:18 · Point rouge', date: '2j' }, { n: 'Compétition Nantes', d: '0:55 · Viseur', date: '5j' }, { n: 'Entraînement club', d: '3:00 · Viseur', date: '8j' }].map((v, i) => (
+            <div key={v.n} style={{ position: 'absolute', top: top + 44 + i * 56, left: pad, right: pad, display: 'flex', gap: 10, alignItems: 'center', paddingBottom: 10, borderBottom: `1px solid ${mix(bg, '#000', 0.08)}` }}>
+              <div style={{ width: 48, height: 38, borderRadius: 6, background: mix(bg, '#0a0c12', 0.5 + i * 0.06), flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'rgba(255,255,255,0.7)' }}>▶</div>
+              <div style={{ flex: 1 }}><div style={{ fontSize: 11, color: ink, fontWeight: 600 }}>{v.n}</div><div style={{ fontSize: 9, color: ink, opacity: 0.55, marginTop: 2 }}>{v.d}</div></div>
+              <div style={{ fontSize: 9, color: ink, opacity: 0.4 }}>{v.date}</div>
+            </div>
+          ))}
+        </>
+      ),
+    },
+    prism: {
+      home: () => (
+        <>
+          <div style={{ position: 'absolute', top, left: pad, fontSize: 10, color: ink, opacity: .55, letterSpacing: 1, fontWeight: 600 }}>MAI 2026</div>
+          <div style={{ position: 'absolute', top: top + 16, left: pad, right: pad, padding: '14px 16px', borderRadius: 12, background: ink, color: bg }}>
+            <div style={{ fontSize: 9, opacity: 0.6 }}>Solde total</div>
+            <div style={{ fontSize: 26, fontFamily: '"Fraunces", serif', fontWeight: 400, letterSpacing: -0.5, marginTop: 4 }}>€ 3 247,80</div>
+            <div style={{ display: 'flex', gap: 16, marginTop: 10 }}>
+              <div><div style={{ fontSize: 8, opacity: 0.6 }}>Revenus</div><div style={{ fontSize: 12, fontWeight: 600, color: 'rgb(120,210,140)' }}>+€2 800</div></div>
+              <div><div style={{ fontSize: 8, opacity: 0.6 }}>Dépenses</div><div style={{ fontSize: 12, fontWeight: 600 }}>-€1 436</div></div>
+            </div>
+          </div>
+          {[{ n: 'BoursoBank', b: '€2 100' }, { n: 'LCL · Épargne', b: '€1 047' }, { n: 'Revolut', b: '€100' }].map((acc, i) => (
+            <div key={acc.n} style={{ position: 'absolute', top: top + 108 + i * 44, left: pad, right: pad, height: 36, borderRadius: 8, background: fade, display: 'flex', alignItems: 'center', padding: '0 12px' }}>
+              <div style={{ flex: 1, fontSize: 10, color: ink, fontWeight: 600 }}>{acc.n}</div>
+              <div style={{ fontSize: 12, color: ink, fontFamily: '"Fraunces", serif' }}>{acc.b}</div>
+            </div>
+          ))}
+        </>
+      ),
+      detail: () => (
+        <>
+          <div style={{ position: 'absolute', top: top - 4, left: pad, fontSize: 14, color: ink }}>←</div>
+          <div style={{ position: 'absolute', top: top + 12, left: pad, fontSize: 10, color: ink, opacity: .55, letterSpacing: 1, fontWeight: 600 }}>TRANSACTIONS · MAI</div>
+          <div style={{ position: 'absolute', top: top + 28, left: pad, right: pad, height: 26, borderRadius: 7, background: fade, display: 'flex', alignItems: 'center', padding: '0 10px' }}>
+            <div style={{ fontSize: 9, color: ink, opacity: 0.5 }}>🔍 Rechercher</div>
+          </div>
+          {[{ cat: '🛒', n: 'Monoprix', a: '-€42,30' }, { cat: '🚇', n: 'RATP navigo', a: '-€86,00' }, { cat: '🎬', n: 'Netflix', a: '-€17,99' }, { cat: '🍽', n: 'Le Zinc', a: '-€34,50' }, { cat: '💰', n: 'Virement reçu', a: '+€2 800' }].map((tx, i) => (
+            <div key={tx.n} style={{ position: 'absolute', top: top + 72 + i * 38, left: pad, right: pad, height: 32, display: 'flex', alignItems: 'center', gap: 8, borderBottom: `1px solid ${mix(bg, '#000', 0.06)}` }}>
+              <div style={{ width: 24, height: 24, borderRadius: 7, background: fade, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11 }}>{tx.cat}</div>
+              <div style={{ flex: 1, fontSize: 10, color: ink, fontWeight: 600 }}>{tx.n}</div>
+              <div style={{ fontSize: 10, fontWeight: 600, color: tx.a.startsWith('+') ? 'rgb(50,140,70)' : ink }}>{tx.a}</div>
+            </div>
+          ))}
+        </>
+      ),
+      list: () => (
+        <>
+          <div style={{ position: 'absolute', top, left: pad, fontSize: 22, color: ink, fontFamily: '"Fraunces", serif', fontWeight: 500, letterSpacing: -0.4 }}>Analytics</div>
+          <div style={{ position: 'absolute', top: top + 40, left: pad, right: pad, height: 96, display: 'flex', alignItems: 'center', gap: 14 }}>
+            <svg width={86} height={86} viewBox="0 0 86 86">
+              <circle cx="43" cy="43" r="28" fill="none" stroke={mix(bg, '#000', 0.13)} strokeWidth="13" />
+              <circle cx="43" cy="43" r="28" fill="none" stroke={ink} strokeWidth="13" strokeDasharray="52 124" strokeDashoffset="0" transform="rotate(-90 43 43)" />
+              <circle cx="43" cy="43" r="28" fill="none" stroke={mix(bg, '#7a3a6a', 0.45)} strokeWidth="13" strokeDasharray="29 124" strokeDashoffset="-52" transform="rotate(-90 43 43)" />
+              <circle cx="43" cy="43" r="28" fill="none" stroke={mix(bg, '#3a5a8a', 0.45)} strokeWidth="13" strokeDasharray="21 124" strokeDashoffset="-81" transform="rotate(-90 43 43)" />
+            </svg>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+              {[['Alim.', '42%', ink], ['Loisirs', '23%', mix(bg,'#7a3a6a',0.5)], ['Transport', '17%', mix(bg,'#3a5a8a',0.5)], ['Autre', '18%', mix(bg,'#000',0.15)]].map(([cat,pct,col]) => (
+                <div key={cat} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: 2, background: col, flexShrink: 0 }} />
+                  <div style={{ fontSize: 9, color: ink }}>{cat}</div>
+                  <div style={{ fontSize: 9, color: ink, fontWeight: 600, marginLeft: 4 }}>{pct}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{ position: 'absolute', top: top + 148, left: pad, fontSize: 9, color: ink, opacity: .5, letterSpacing: 1, fontWeight: 600 }}>12 DERNIERS MOIS</div>
+          <div style={{ position: 'absolute', top: top + 166, left: pad, right: pad, display: 'flex', gap: 3, alignItems: 'flex-end', height: 52 }}>
+            {[0.6,0.75,0.5,0.9,0.7,0.65,0.8,0.85,0.7,0.6,0.8,0.95].map((h, i) => (
+              <div key={i} style={{ flex: 1, height: `${h*100}%`, background: i===11 ? ink : mix(bg,'#000',0.16), borderRadius: '2px 2px 0 0' }} />
+            ))}
+          </div>
+        </>
+      ),
+    },
+    lucioles: {
+      home: () => (
+        <>
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '66%', background: 'linear-gradient(135deg, #15192a, #222840)', overflow: 'hidden', borderRadius: `${w*0.105}px ${w*0.105}px 0 0` }}>
+            {[0,1,2,3,4].map(i => <div key={`h${i}`} style={{ position:'absolute',top:`${18+i*16}%`,left:0,right:0,height:1,background:'rgba(255,255,255,0.035)' }} />)}
+            {[0,1,2,3].map(i => <div key={`v${i}`} style={{ position:'absolute',left:`${12+i*24}%`,top:0,bottom:0,width:1,background:'rgba(255,255,255,0.035)' }} />)}
+            {[{t:'22%',l:'30%'},{t:'38%',l:'58%'},{t:'26%',l:'72%'},{t:'52%',l:'22%'},{t:'46%',l:'44%'},{t:'62%',l:'67%'}].map((pos,i) => (
+              <div key={i} style={{ position:'absolute',top:pos.t,left:pos.l,width:i===4?11:7,height:i===4?11:7,borderRadius:'50%',background:'#E8C86A',boxShadow:'0 0 8px 2px rgba(232,200,106,0.6)',transform:'translate(-50%,-50%)' }} />
+            ))}
+            <div style={{ position:'absolute',top:14,left:pad,fontSize:9,color:'rgba(255,255,255,0.55)',fontWeight:600,letterSpacing:1 }}>CARTE · BORDEAUX</div>
+          </div>
+          <div style={{ position:'absolute',bottom:0,left:0,right:0,height:'36%',background:bg,borderRadius:'14px 14px 0 0',padding:'14px 16px' }}>
+            <div style={{ fontSize:9,color:ink,opacity:0.5,fontWeight:600,letterSpacing:0.8 }}>AUJOURD'HUI</div>
+            <div style={{ fontSize:14,color:ink,fontFamily:'"Fraunces", serif',fontWeight:500,marginTop:6,lineHeight:1.3 }}>Le marché du matin, les clochettes du tram...</div>
+            <div style={{ marginTop:10,display:'flex',gap:6 }}>
+              <div style={{ padding:'4px 10px',borderRadius:999,background:fade,fontSize:8,color:ink }}>📍 Chartrons</div>
+              <div style={{ padding:'4px 10px',borderRadius:999,background:fade,fontSize:8,color:ink }}>✨ 47 lucioles</div>
+            </div>
+          </div>
+        </>
+      ),
+      detail: () => (
+        <>
+          <div style={{ position:'absolute',top:top-4,left:pad,fontSize:14,color:ink }}>←</div>
+          <div style={{ position:'absolute',top:top+12,left:pad,fontSize:10,color:ink,opacity:.5,letterSpacing:1,fontWeight:600 }}>ENTRÉE · 9 MAI</div>
+          <div style={{ position:'absolute',top:top+28,left:pad,right:pad,fontSize:17,color:ink,fontFamily:'"Fraunces", serif',fontWeight:500,letterSpacing:-0.3,lineHeight:1.35 }}>Le marché du matin, les clochettes du tram...</div>
+          <div style={{ position:'absolute',top:top+88,left:pad,right:pad,fontSize:11,color:ink,opacity:0.65,lineHeight:1.55 }}>Ces petits bruits que j'entends depuis l'enfance. Ce matin, je les ai vraiment entendus.</div>
+          <div style={{ position:'absolute',top:top+158,left:pad,right:pad,height:76,borderRadius:10,background:'#15192a',overflow:'hidden' }}>
+            <div style={{ position:'absolute',top:'44%',left:'48%',width:9,height:9,borderRadius:'50%',background:'#E8C86A',boxShadow:'0 0 8px rgba(232,200,106,0.7)',transform:'translate(-50%,-50%)' }} />
+            <div style={{ position:'absolute',bottom:6,left:10,fontSize:8,color:'rgba(255,255,255,0.5)' }}>Chartrons, Bordeaux</div>
+          </div>
+          <div style={{ position:'absolute',top:top+248,left:pad,right:pad,display:'flex',gap:6 }}>
+            {['printemps','matin','quartier'].map(tag => (
+              <div key={tag} style={{ padding:'4px 10px',borderRadius:999,background:fade,fontSize:8,color:ink }}>#{tag}</div>
+            ))}
+          </div>
+        </>
+      ),
+      list: () => (
+        <>
+          <div style={{ position:'absolute',top,left:pad,fontSize:22,color:ink,fontFamily:'"Fraunces", serif',fontWeight:500,letterSpacing:-0.4 }}>Mes lucioles</div>
+          <div style={{ position:'absolute',top:top+38,left:pad,right:pad,display:'flex',gap:5 }}>
+            {['🌸 Print.','☀️ Été','🍂 Auto.','❄️ Hiver'].map((s,i) => (
+              <div key={s} style={{ flex:1,padding:'5px 0',borderRadius:8,background:i===0?ink:fade,color:i===0?bg:ink,fontSize:8,fontWeight:600,textAlign:'center' }}>{s}</div>
+            ))}
+          </div>
+          {[{d:'9 mai',t:'Le marché du matin...',loc:'Chartrons'},{d:'7 mai',t:'Odeur de pain chaud...',loc:'Saint-Michel'},{d:'3 mai',t:'Un enfant qui court...',loc:'Jardin Public'},{d:'28 avr.',t:'Première terrasse...',loc:'Victoire'}].map((e,i) => (
+            <div key={e.d} style={{ position:'absolute',top:top+82+i*52,left:pad,right:pad,display:'flex',gap:10,paddingBottom:10,borderBottom:`1px solid ${mix(bg,'#000',0.07)}` }}>
+              <div style={{ width:9,height:9,borderRadius:'50%',background:'#E8C86A',marginTop:4,boxShadow:'0 0 5px rgba(232,200,106,0.6)',flexShrink:0 }} />
+              <div style={{ flex:1 }}>
+                <div style={{ fontSize:11,color:ink,fontWeight:600,lineHeight:1.2 }}>{e.t}</div>
+                <div style={{ fontSize:8,color:ink,opacity:0.5,marginTop:3 }}>{e.loc} · {e.d}</div>
+              </div>
+            </div>
+          ))}
+        </>
+      ),
+    },
+  };
+  const set = screens[app.slug] || screens.bravn;
+  const Render = set[variant] || set.home;
+  return <Render />;
+}
+
+function PhoneScreen({ app, variant = 'home', w = 220 }) {
+  const h = Math.round((w - 12) * 2.168 + 12);
+  const bg = app.color;
+  const ink = mix(bg, '#1a1410', 0.78);
+  const dark = mix(bg, '#1a1410', 0.55);
+  const fade = mix(bg, '#fff', 0.4);
+  const fadeStrong = mix(bg, '#fff', 0.55);
+  const screenshot = app.screenshots && app.screenshots[variant];
+  return (
+    <div style={{ width: w, height: h, borderRadius: w*0.13, background: '#1a1410', padding: 6, boxShadow: '0 30px 60px -30px rgba(40,30,20,.45), 0 10px 30px -15px rgba(40,30,20,.3)', position: 'relative', flexShrink: 0 }}>
+      <div style={{ width: '100%', height: '100%', borderRadius: w*0.105, background: bg, overflow: 'hidden', position: 'relative' }}>
+        {screenshot ? (
+          <div style={{ width: '100%', height: '100%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img src={screenshot} alt="" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          </div>
+        ) : (
+          <>
+            <div style={{ position: 'absolute', top: 8, left: '50%', transform: 'translateX(-50%)', width: w*0.32, height: 18, background: '#1a1410', borderRadius: 12, zIndex: 3 }} />
+            <div style={{ position: 'absolute', top: 12, left: 16, right: 16, display: 'flex', justifyContent: 'space-between', fontSize: 10, color: ink, fontWeight: 600 }}>
+              <span>9:41</span>
+              <span style={{ width: 14, height: 8, border: `1px solid ${ink}`, borderRadius: 2, opacity: 0.8, display: 'inline-block' }} />
+            </div>
+            <ScreenArt app={app} variant={variant} ink={ink} dark={dark} bg={bg} fade={fade} fadeStrong={fadeStrong} w={w} />
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Shared layout components ─────────────────────────────────────────────────
+
+function OrbitLogo({ size = 26, color, accent, label = 'Orbit Dev Studio' }) {
+  const col = color || T.ink;
+  const acc = accent || T.accent;
+  return (
+    <a href="#" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, color: col, textDecoration: 'none' }}>
+      <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
+        <ellipse cx="16" cy="16" rx="13" ry="13" stroke={col} strokeWidth="1" />
+        <ellipse cx="16" cy="16" rx="13" ry="6" stroke={col} strokeWidth="0.6" opacity="0.4" transform="rotate(-22 16 16)" />
+        <circle cx="27" cy="11" r="2.6" fill={acc} />
+      </svg>
+      {label && <span style={{ fontWeight: 500, fontSize: 16, letterSpacing: -0.2 }}>{label}</span>}
+    </a>
+  );
+}
+
+function OrbitGlyph({ size = 200, ringColor = 'currentColor', dotColor, tilt = -18 }) {
+  const dot = dotColor || ringColor;
+  return (
+    <svg width={size} height={size} viewBox="0 0 200 200" style={{ overflow: 'visible' }}>
+      <g transform={`rotate(${tilt} 100 100)`}>
+        <ellipse cx="100" cy="100" rx="90" ry="32" fill="none" stroke={ringColor} strokeWidth="0.8" opacity="0.5" />
+        <ellipse cx="100" cy="100" rx="90" ry="62" fill="none" stroke={ringColor} strokeWidth="0.8" opacity="0.3" />
+        <ellipse cx="100" cy="100" rx="90" ry="90" fill="none" stroke={ringColor} strokeWidth="0.8" opacity="0.2" />
+        <circle cx="190" cy="100" r="5" fill={dot} />
+        <circle cx="100" cy="38" r="3" fill={dot} opacity="0.7" />
+        <circle cx="40" cy="130" r="2" fill={dot} opacity="0.5" />
+      </g>
+    </svg>
+  );
+}
+
+function Eyebrow({ children, color }) {
+  return (
+    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontSize: 12, letterSpacing: 1.6, fontWeight: 600, textTransform: 'uppercase', color: color || T.accent }}>
+      <span style={{ width: 24, height: 1, background: 'currentColor', display: 'inline-block' }} />
+      {children}
+    </div>
+  );
+}
+
+function SiteHeader() {
+  const { lang, setLang } = useLang();
+  const c = CONTENT[lang].nav;
+  const [visible, setVisible] = useState(true);
+  const lastY = useRef(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const y = window.scrollY;
+      if (y < 10) { setVisible(true); lastY.current = y; return; }
+      setVisible(y < lastY.current);
+      lastY.current = y;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const items = [
+    { label: c.studio, href: '#studio' },
+    { label: c.services, href: '#services' },
+    { label: c.travaux, href: '#travaux' },
+    { label: c.process, href: '#process' },
+    { label: c.contact, href: '#contact' },
+  ];
+  return (
+    <>
+      <div style={{ height: 80 }} />
+      <header style={{
+        position: 'fixed', top: 0, left: 0, right: 0,
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+        padding: `28px ${T.padX}px`, borderBottom: `1px solid ${T.border}`,
+        background: T.paper + 'dd', backdropFilter: 'blur(14px)', zIndex: 50,
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+        transition: 'transform .35s cubic-bezier(0.4,0,0.2,1)',
+      }}>
+        <OrbitLogo />
+        <nav style={{ display: 'flex', gap: 40, fontSize: 14 }}>
+          {items.map((it) => (
+            <a key={it.label} href={it.href} style={{ textDecoration: 'none', color: T.ink, opacity: 0.7, position: 'relative', paddingBottom: 4, borderBottom: '1px solid transparent', transition: 'opacity .2s, border-color .2s' }}
+              onMouseEnter={e => { e.currentTarget.style.opacity = 1; e.currentTarget.style.borderBottomColor = T.accent; }}
+              onMouseLeave={e => { e.currentTarget.style.opacity = 0.7; e.currentTarget.style.borderBottomColor = 'transparent'; }}
+            >{it.label}</a>
+          ))}
+        </nav>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 18, fontSize: 13 }}>
+          <div style={{ display: 'flex', gap: 6, color: T.ink, userSelect: 'none' }}>
+            <span onClick={() => setLang('fr')} style={{ fontWeight: lang === 'fr' ? 700 : 400, cursor: 'pointer', color: lang === 'fr' ? T.ink : T.inkSoft, borderBottom: lang === 'fr' ? `1px solid ${T.accent}` : '1px solid transparent', paddingBottom: 2 }}>FR</span>
+            <span style={{ opacity: .3 }}>/</span>
+            <span onClick={() => setLang('en')} style={{ fontWeight: lang === 'en' ? 700 : 400, cursor: 'pointer', color: lang === 'en' ? T.ink : T.inkSoft, borderBottom: lang === 'en' ? `1px solid ${T.accent}` : '1px solid transparent', paddingBottom: 2 }}>EN</span>
+          </div>
+          <a href="#contact" style={{ padding: '11px 22px', borderRadius: 999, background: T.accent, color: T.paper, fontSize: 13, fontWeight: 500, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            {c.cta} <span style={{ fontSize: 14 }}>↗</span>
+          </a>
+        </div>
+      </header>
+    </>
+  );
+}
+
+function SiteFooter() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].footer;
+  return (
+    <footer style={{ background: T.ink, color: T.paper, padding: `120px ${T.padX}px 40px`, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: -200, right: -200, opacity: 0.18, color: T.accent }}>
+        <OrbitGlyph size={700} ringColor="currentColor" dotColor={T.accent} tilt={-22} />
+      </div>
+      <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 64, marginBottom: 100 }}>
+        <div>
+          <h3 style={{ ...Serif, fontSize: 84, lineHeight: 0.95, margin: 0, color: T.paper }}>Orbit<br /><em style={{ fontStyle: 'italic', color: T.accent, fontWeight: 300 }}>Dev Studio.</em></h3>
+          <p style={{ fontSize: 16, opacity: 0.7, marginTop: 32, maxWidth: 360, lineHeight: 1.6 }}>{c.tagline}</p>
+          <a href="#contact" style={{ display: 'inline-flex', alignItems: 'center', gap: 12, marginTop: 32, padding: '14px 24px', borderRadius: 999, background: T.accent, color: T.paper, textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>{c.cta} <span>↗</span></a>
+        </div>
+        {c.cols.map((col) => (
+          <div key={col.t}>
+            <div style={{ fontSize: 12, opacity: 0.5, letterSpacing: 1.2, marginBottom: 24, textTransform: 'uppercase', color: T.accentSoft }}>{col.t}</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {col.l.map((l) => <a key={l.label} href={l.href} style={{ fontSize: 15, color: T.paper, opacity: 0.9, textDecoration: 'none' }}>{l.label}</a>)}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{ paddingTop: 32, borderTop: '1px solid rgba(245,239,230,0.15)', display: 'flex', justifyContent: 'space-between', fontSize: 13, opacity: 0.55 }}>
+        <span>{c.legal}</span><span>{c.links}</span>
+      </div>
+    </footer>
+  );
+}
+
+// ─── Page sections ────────────────────────────────────────────────────────────
+
+function HomeHero() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].hero;
+  const coverageLabel = lang === 'fr' ? 'Interventions' : 'Coverage';
+  return (
+    <section style={{ padding: `${T.pad}px ${T.padX}px ${T.pad - 40}px`, position: 'relative', borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1.7fr 1fr', gap: 80, alignItems: 'start' }}>
+        <div>
+          <Eyebrow>{c.eyebrow}</Eyebrow>
+          <h1 style={{ ...Serif, fontSize: 'clamp(72px, 11vw, 168px)', margin: '40px 0 0', color: T.ink }}>{c.title}</h1>
+          <div style={{ marginTop: 56, maxWidth: 540, fontSize: 19, lineHeight: 1.55, color: T.inkSoft }}>{c.sub}</div>
+          <div style={{ marginTop: 56, display: 'flex', alignItems: 'center', gap: 28 }}>
+            <a href="#contact" style={{ padding: '18px 32px', borderRadius: 999, background: T.accent, color: T.paper, fontSize: 14, fontWeight: 500, textDecoration: 'none', display: 'inline-flex', gap: 10, alignItems: 'center' }}>{c.cta1} <span>↗</span></a>
+            <a href="#travaux" style={{ padding: '18px 32px', borderRadius: 999, background: 'transparent', color: T.ink, fontSize: 14, fontWeight: 500, textDecoration: 'none', border: `1px solid ${T.borderDeep}`, display: 'inline-flex', gap: 10, alignItems: 'center' }}>{c.cta2}</a>
+          </div>
+        </div>
+        <div style={{ position: 'relative', height: 560 }}>
+          <div style={{ position: 'absolute', top: 0, right: 0, width: 360, height: 480, background: T.paperDeep, borderRadius: 4, overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', inset: 0, background: `radial-gradient(circle at 70% 30%, ${T.accentSoft}, transparent 70%)` }} />
+            <div style={{ position: 'absolute', top: 40, right: -60, opacity: 0.7 }}><OrbitGlyph size={420} ringColor={T.ink} dotColor={T.accent} tilt={-22} /></div>
+          </div>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, transform: 'rotate(-4deg)' }}><PhoneScreen app={OrbitApps[0]} variant="home" w={200} /></div>
+          <div style={{ position: 'absolute', bottom: 60, right: -10, transform: 'rotate(6deg)' }}><PhoneScreen app={OrbitApps[2]} variant="home" w={180} /></div>
+        </div>
+      </div>
+      <div style={{ marginTop: 80, display: 'flex', alignItems: 'center', gap: 0, borderTop: `1px solid ${T.border}`, paddingTop: 20, paddingBottom: 20, borderBottom: `1px solid ${T.border}`, overflow: 'hidden' }}>
+        <div style={{ fontSize: 10, letterSpacing: 2, fontWeight: 600, textTransform: 'uppercase', color: T.accent, flexShrink: 0, marginRight: 32, whiteSpace: 'nowrap' }}>{coverageLabel}</div>
+        <div style={{ display: 'flex', gap: 0, flexWrap: 'nowrap', overflowX: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+          {['Lyon', 'Paris', 'Nantes', 'Bordeaux', 'Marseille', 'Toulouse', 'Lille', 'Strasbourg', 'Grenoble', 'International'].map((city, i) => (
+            <span key={city} style={{ fontSize: 13, color: i === 0 ? T.ink : T.inkSoft, fontWeight: i === 0 ? 600 : 400, whiteSpace: 'nowrap', padding: '0 18px', borderRight: `1px solid ${T.border}` }}>{city}</span>
+          ))}
+        </div>
+      </div>
+      <div style={{ marginTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+        <div style={{ fontSize: 12, letterSpacing: 1.2, color: T.inkSoft, textTransform: 'uppercase' }}>{c.scroll}</div>
+        <div style={{ display: 'flex', gap: 60, fontSize: 13, color: T.inkSoft }}>
+          {c.stats.map(s => <span key={s.l}><strong style={{ color: T.ink, fontWeight: 600 }}>{s.v}</strong> {s.l}</span>)}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeManifesto() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].manifesto;
+  return (
+    <section id="studio" style={{ padding: `${T.pad}px ${T.padX}px`, background: T.paperDeep, borderBottom: `1px solid ${T.border}` }}>
+      <Eyebrow>{c.eyebrow}</Eyebrow>
+      <div style={{ marginTop: 64, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 120, alignItems: 'start' }}>
+        <h2 style={{ ...Serif, fontSize: 'clamp(48px, 6vw, 92px)', margin: 0, color: T.ink }}>{c.title}</h2>
+        <div style={{ paddingTop: 16 }}>
+          <p style={{ fontSize: 22, lineHeight: 1.6, color: T.ink, marginTop: 0, fontFamily: '"Fraunces", serif', fontWeight: 400 }}>{c.p1}</p>
+          <p style={{ fontSize: 16, lineHeight: 1.7, color: T.inkSoft, marginTop: 32 }}>{c.p2}</p>
+          <div style={{ marginTop: 40, display: 'flex', gap: 28, fontSize: 13, color: T.inkSoft }}>
+            <span>{c.sig}</span><span style={{ color: T.ink }}>{c.role}</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeServices() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].services;
+  return (
+    <section id="services" style={{ padding: `${T.pad}px ${T.padX}px`, borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 80 }}>
+        <div>
+          <Eyebrow>{c.eyebrow}</Eyebrow>
+          <h2 style={{ ...Serif, fontSize: 'clamp(56px, 7vw, 104px)', margin: '32px 0 0', color: T.ink, maxWidth: 900 }}>{c.title}</h2>
+        </div>
+        <a href="#contact" style={{ fontSize: 14, color: T.accent, textDecoration: 'none', borderBottom: `1px solid ${T.accent}`, paddingBottom: 4 }}>{c.link}</a>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', borderTop: `1px solid ${T.border}` }}>
+        {c.items.map((s, i) => (
+          <div key={s.n} style={{ padding: '64px 56px 64px 0', borderBottom: `1px solid ${T.border}`, borderRight: i % 2 === 0 ? `1px solid ${T.border}` : 'none', paddingLeft: i % 2 === 1 ? 56 : 0, display: 'grid', gridTemplateColumns: '64px 1fr', gap: 32 }}>
+            <div style={{ ...Serif, fontSize: 64, color: T.accent, fontStyle: 'italic', fontWeight: 300, lineHeight: 1 }}>{s.n}</div>
+            <div>
+              <h3 style={{ ...Serif, fontSize: 36, margin: 0, color: T.ink }}>{s.t}</h3>
+              <p style={{ fontSize: 16, lineHeight: 1.7, color: T.inkSoft, marginTop: 20, maxWidth: 460 }}>{s.d}</p>
+              <div style={{ marginTop: 28, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                {s.tags.map(tag => <span key={tag} style={{ padding: '6px 14px', borderRadius: 999, fontSize: 12, background: T.paperDeep, color: T.ink, letterSpacing: 0.2 }}>{tag}</span>)}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HomePortfolio() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].portfolio;
+  return (
+    <section id="travaux" style={{ padding: `${T.pad}px ${T.padX}px`, background: T.paperDeep, borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 80 }}>
+        <div>
+          <Eyebrow>{c.eyebrow}</Eyebrow>
+          <h2 style={{ ...Serif, fontSize: 'clamp(56px, 7vw, 104px)', margin: '32px 0 0', color: T.ink }}>{c.title}</h2>
+        </div>
+        <a href="#travaux" style={{ fontSize: 14, color: T.accent, textDecoration: 'none', borderBottom: `1px solid ${T.accent}`, paddingBottom: 4 }}>{c.link}</a>
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 56 }}>
+        {OrbitApps.map((app, i) => (
+          <a key={app.slug} href={`#/${app.slug}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+            onMouseEnter={e => e.currentTarget.querySelector('.card-arrow').style.transform = 'translate(3px,-3px)'}
+            onMouseLeave={e => e.currentTarget.querySelector('.card-arrow').style.transform = 'translate(0,0)'}
+          >
+            <div style={{ background: app.color, borderRadius: 4, padding: 48, height: 420, position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', transition: 'opacity .2s' }}>
+              <div style={{ position: 'absolute', top: 24, left: 24, fontSize: 11, letterSpacing: 1.4, fontWeight: 600, opacity: 0.5, color: app.accentTone }}>{String(i + 1).padStart(2, '0')} · {app.year}</div>
+              <div style={{ position: 'absolute', bottom: 20, left: 24, display: 'flex', gap: 8 }}>
+                {app.stores.apple && <span style={{ fontSize: 10, fontWeight: 600, padding: '4px 10px', borderRadius: 6, background: 'rgba(0,0,0,0.12)', color: app.accentTone, letterSpacing: 0.2 }}>App Store</span>}
+                {app.stores.google && <span style={{ fontSize: 10, fontWeight: 600, padding: '4px 10px', borderRadius: 6, background: 'rgba(0,0,0,0.12)', color: app.accentTone, letterSpacing: 0.2 }}>Google Play</span>}
+              </div>
+              <div style={{ transform: 'translateY(40px)' }}><PhoneScreen app={app} variant="home" w={200} /></div>
+            </div>
+            <div style={{ marginTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+              <div>
+                <h3 style={{ ...Serif, fontSize: 28, margin: 0, color: T.ink }}>{app.name}</h3>
+                <div style={{ fontSize: 13, color: T.inkSoft, marginTop: 6 }}>{app.tag}</div>
+              </div>
+              <span className="card-arrow" style={{ fontSize: 14, color: T.accent, display: 'inline-block', transition: 'transform .2s' }}>↗</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HomeStack() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].stack;
+  const stackItems = ['Flutter 3', 'Dart', 'Supabase', 'PostgreSQL', 'Edge Functions', 'Riverpod', 'Firebase', 'Stripe', 'TestFlight'];
+  return (
+    <section style={{ padding: `${T.pad}px ${T.padX}px`, background: T.ink, color: T.paper, borderBottom: `1px solid rgba(245,239,230,0.12)` }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 120, alignItems: 'center' }}>
+        <div>
+          <Eyebrow color={T.accentSoft}>{c.eyebrow}</Eyebrow>
+          <h2 style={{ ...Serif, fontSize: 'clamp(48px, 6vw, 88px)', margin: '32px 0 0', color: T.paper }}>{c.title}</h2>
+          <p style={{ fontSize: 18, lineHeight: 1.6, color: T.paper, opacity: 0.75, marginTop: 40, maxWidth: 520 }}>{c.p1}</p>
+          <p style={{ fontSize: 16, lineHeight: 1.6, color: T.paper, opacity: 0.55, marginTop: 24, maxWidth: 480 }}>{c.p2}</p>
+        </div>
+        <div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+            {stackItems.map(item => <div key={item} style={{ padding: '10px 20px', borderRadius: 999, border: `1px solid rgba(245,239,230,0.2)`, fontSize: 13, color: T.paper, fontWeight: 500 }}>{item}</div>)}
+          </div>
+          <div style={{ marginTop: 64, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+            {c.metrics.map(s => (
+              <div key={s.l}>
+                <div style={{ ...Serif, fontSize: 40, color: T.accent, fontStyle: 'italic', fontWeight: 300 }}>{s.v}</div>
+                <div style={{ fontSize: 13, color: T.paper, opacity: 0.6, marginTop: 8, lineHeight: 1.4 }}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeProcess() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].process;
+  return (
+    <section id="process" style={{ padding: `${T.pad}px ${T.padX}px`, borderBottom: `1px solid ${T.border}` }}>
+      <Eyebrow>{c.eyebrow}</Eyebrow>
+      <h2 style={{ ...Serif, fontSize: 'clamp(56px, 7vw, 104px)', margin: '32px 0 96px', color: T.ink, maxWidth: 1100 }}>{c.title}</h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, borderTop: `2px solid ${T.accent}` }}>
+        {c.steps.map((s, i) => (
+          <div key={s.n} style={{ padding: '48px 32px 0 0', borderRight: i < 3 ? `1px solid ${T.border}` : 'none' }}>
+            <div style={{ ...Serif, fontSize: 14, letterSpacing: 4, color: T.accent, fontWeight: 600, marginBottom: 16 }}>{c.act} {s.n}</div>
+            <h3 style={{ ...Serif, fontSize: 40, margin: 0, color: T.ink, fontStyle: 'italic', fontWeight: 300 }}>{s.t}</h3>
+            <p style={{ fontSize: 15, lineHeight: 1.65, color: T.inkSoft, marginTop: 28, maxWidth: 280 }}>{s.d}</p>
+            <div style={{ marginTop: 32, fontSize: 12, letterSpacing: 1.2, fontWeight: 600, color: T.ink, textTransform: 'uppercase' }}>{s.dur}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HomeStats() {
+  const { lang } = useLang();
+  const stats = CONTENT[lang].stats;
+  return (
+    <section style={{ padding: `${T.pad - 40}px ${T.padX}px`, background: T.ink, color: T.paper, borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 0 }}>
+        {stats.map((s, i) => (
+          <div key={s.l} style={{ padding: '0 32px', borderRight: i < 2 ? '1px solid rgba(245,239,230,0.15)' : 'none' }}>
+            <div style={{ ...Serif, fontSize: 'clamp(40px, 7vw, 132px)', color: T.accent, fontStyle: 'italic', fontWeight: 300, lineHeight: 1, letterSpacing: -2, whiteSpace: 'nowrap' }}>{s.v}</div>
+            <div style={{ fontSize: 14, opacity: 0.7, marginTop: 24, maxWidth: 200, lineHeight: 1.5 }}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HomeTestimonials() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].testimonials;
+  return (
+    <section style={{ padding: `${T.pad}px ${T.padX}px`, borderBottom: `1px solid ${T.border}` }}>
+      <Eyebrow>{c.eyebrow}</Eyebrow>
+      <div style={{ marginTop: 80, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 48 }}>
+        {c.items.map((t, i) => (
+          <figure key={i} style={{ margin: 0, padding: '40px 0 0', borderTop: `2px solid ${T.accent}` }}>
+            <div style={{ ...Serif, fontSize: 96, color: T.accent, lineHeight: 0.5, height: 40, fontStyle: 'italic', fontWeight: 300 }}>"</div>
+            <blockquote style={{ ...Serif, fontSize: 24, lineHeight: 1.4, color: T.ink, margin: 0, fontWeight: 400 }}>{t.q}</blockquote>
+            <figcaption style={{ marginTop: 32, fontSize: 14, color: T.ink }}>
+              <strong style={{ fontWeight: 600 }}>{t.a}</strong>
+              <span style={{ color: T.inkSoft, display: 'block', marginTop: 4 }}>{t.r}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function HomeFAQ() {
+  const [open, setOpen] = useState(null);
+  const { lang } = useLang();
+  const c = CONTENT[lang].faq;
+  return (
+    <section style={{ padding: `${T.pad}px ${T.padX}px`, background: T.paperDeep, borderBottom: `1px solid ${T.border}` }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', gap: 120, alignItems: 'start' }}>
+        <div>
+          <Eyebrow>{c.eyebrow}</Eyebrow>
+          <h2 style={{ ...Serif, fontSize: 'clamp(48px, 5vw, 80px)', margin: '32px 0 0', color: T.ink }}>{c.title}</h2>
+        </div>
+        <div>
+          {c.items.map((faq, i) => (
+            <div key={i} style={{ borderTop: `1px solid ${T.border}`, paddingTop: 28, paddingBottom: 28 }}>
+              <button onClick={() => setOpen(open === i ? null : i)} style={{ background: 'none', border: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 24, padding: 0 }}>
+                <span style={{ fontSize: 20, color: T.ink, fontFamily: '"Fraunces", serif', fontWeight: 400, lineHeight: 1.3 }}>{faq.q}</span>
+                <span style={{ fontSize: 22, color: T.accent, flexShrink: 0, transform: open === i ? 'rotate(45deg)' : 'none', transition: 'transform 0.2s', display: 'inline-block' }}>+</span>
+              </button>
+              {open === i && <p style={{ fontSize: 16, lineHeight: 1.7, color: T.inkSoft, marginTop: 16, marginBottom: 0, maxWidth: 600 }}>{faq.a}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HomeCTA() {
+  const { lang } = useLang();
+  const c = CONTENT[lang].cta;
+  return (
+    <section id="contact" style={{ padding: `${T.pad + 40}px ${T.padX}px`, background: T.accent, color: T.paper, position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', top: -300, right: -200, opacity: 0.18, color: T.paper }}>
+        <OrbitGlyph size={900} ringColor="currentColor" dotColor="currentColor" tilt={-22} />
+      </div>
+      <div style={{ position: 'relative', maxWidth: 1100 }}>
+        <div style={{ fontSize: 12, letterSpacing: 1.6, fontWeight: 600, textTransform: 'uppercase', opacity: 0.85 }}>{c.eyebrow}</div>
+        <h2 style={{ ...Serif, fontSize: 'clamp(72px, 11vw, 168px)', margin: '40px 0 0', color: T.paper }}>{c.title}</h2>
+        <p style={{ fontSize: 20, lineHeight: 1.55, marginTop: 48, maxWidth: 600, opacity: 0.9 }}>{c.sub}</p>
+        <div style={{ marginTop: 56, display: 'flex', gap: 20 }}>
+          <a href="mailto:roblusson40@gmail.com" style={{ padding: '20px 36px', borderRadius: 999, background: T.paper, color: T.accent, fontSize: 14, fontWeight: 600, textDecoration: 'none', display: 'inline-flex', gap: 10, alignItems: 'center' }}>{c.btn1} <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Store badges ────────────────────────────────────────────────────────────
+
+function StoreBadge({ store, href = '#', accentTone, cardColor }) {
+  const isApple = store === 'apple';
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" style={{
+      display: 'inline-flex', alignItems: 'center', gap: 10,
+      padding: '11px 20px', borderRadius: 10,
+      background: accentTone, color: cardColor,
+      textDecoration: 'none', transition: 'opacity .18s',
+    }}
+      onMouseEnter={e => e.currentTarget.style.opacity = '0.78'}
+      onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+    >
+      {isApple ? (
+        <svg width="15" height="18" viewBox="0 0 814 1000" fill="currentColor">
+          <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-34.4-147.2-99.7C172.9 740.7 115.5 631 115.5 526.5c0-171.5 112.1-262 221.7-262 73.8 0 151.6 50.2 205.7 50.2 52.1 0 136.5-52.2 220.9-52.2zM554.1 88.4c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
+        </svg>
+      ) : (
+        <svg width="14" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M1.22 0L1 .15v23.7l.22.15L12.5 12zm21.6 10.74L20.1 9.3l-2.35 2.7 2.35 2.7 2.72-1.44c.57-.33.57-.99 0-1.32zM1.44 23.88L12.5 12.89 3.29 3.68zm11.06-11.77L1.44.12l2.85 20.2z" />
+        </svg>
+      )}
+      <div style={{ lineHeight: 1.25 }}>
+        <div style={{ fontSize: 9, opacity: 0.65, letterSpacing: 0.3 }}>{isApple ? 'Download on the' : 'Get it on'}</div>
+        <div style={{ fontSize: 13, fontWeight: 600 }}>{isApple ? 'App Store' : 'Google Play'}</div>
+      </div>
+    </a>
+  );
+}
+
+// ─── Routing ─────────────────────────────────────────────────────────────────
+
+function useRoute() {
+  const [hash, setHash] = useState(window.location.hash || '#/');
+  useEffect(() => {
+    const h = () => setHash(window.location.hash || '#/');
+    window.addEventListener('hashchange', h);
+    return () => window.removeEventListener('hashchange', h);
+  }, []);
+  return hash;
+}
+
+// ─── Project page ─────────────────────────────────────────────────────────────
+
+function ProjectPage({ app }) {
+  const { lang } = useLang();
+  const idx = OrbitApps.findIndex(a => a.slug === app.slug);
+  const nextApp = OrbitApps[(idx + 1) % OrbitApps.length];
+  const screenLabels = { fr: ['Accueil', 'Détail', 'Liste'], en: ['Home', 'Detail', 'List'] };
+
+  useEffect(() => { window.scrollTo(0, 0); }, [app.slug]);
+
+  return (
+    <>
+      {/* Hero */}
+      <section style={{ padding: `${T.pad}px ${T.padX}px`, background: app.color, borderBottom: `1px solid ${T.border}`, overflow: 'hidden' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr', gap: 80, alignItems: 'start' }}>
+          <div>
+            <div style={{ fontSize: 12, letterSpacing: 1.6, fontWeight: 600, textTransform: 'uppercase', color: app.accentTone, opacity: 0.55, marginBottom: 20 }}>{app.tag} · {app.year}</div>
+            <h1 style={{ ...Serif, fontSize: 'clamp(64px, 9vw, 136px)', margin: 0, color: app.accentTone, lineHeight: 0.95 }}>{app.name}</h1>
+            <p style={{ fontSize: 18, lineHeight: 1.65, color: app.accentTone, opacity: 0.75, marginTop: 40, maxWidth: 480 }}>{app.context[lang]}</p>
+            <div style={{ marginTop: 32, display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+              {app.role.map(r => <span key={r} style={{ padding: '6px 14px', borderRadius: 999, background: 'rgba(0,0,0,0.07)', fontSize: 12, color: app.accentTone, fontWeight: 500 }}>{r}</span>)}
+              {app.platforms.map(p => <span key={p} style={{ padding: '6px 14px', borderRadius: 999, background: 'rgba(0,0,0,0.13)', fontSize: 12, color: app.accentTone, fontWeight: 700 }}>{p}</span>)}
+            </div>
+            <div style={{ marginTop: 40, fontSize: 13, color: app.accentTone, opacity: 0.55 }}>
+              {lang === 'fr' ? 'Durée' : 'Duration'} — <strong style={{ opacity: 1 }}>{app.duration}</strong>
+            </div>
+            <div style={{ marginTop: 32, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              {app.stores.apple && <StoreBadge store="apple" href={app.stores.apple} accentTone={app.accentTone} cardColor={app.color} />}
+              {app.stores.google && <StoreBadge store="google" href={app.stores.google} accentTone={app.accentTone} cardColor={app.color} />}
+            </div>
+          </div>
+          <div style={{ position: 'relative', height: 540, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+            <div style={{ position: 'absolute', left: 10, bottom: 0, transform: 'rotate(-5deg)', transformOrigin: 'bottom center' }}>
+              <PhoneScreen app={app} variant="list" w={200} />
+            </div>
+            <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', bottom: 24 }}>
+              <PhoneScreen app={app} variant="home" w={230} />
+            </div>
+            <div style={{ position: 'absolute', right: 10, bottom: 0, transform: 'rotate(5deg)', transformOrigin: 'bottom center' }}>
+              <PhoneScreen app={app} variant="detail" w={200} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Metrics */}
+      <section style={{ padding: `${T.pad}px ${T.padX}px`, borderBottom: `1px solid ${T.border}` }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 48 }}>
+          {app.metrics.map(m => (
+            <div key={m.l} style={{ paddingTop: 40, borderTop: `1px solid ${T.border}` }}>
+              <div style={{ ...Serif, fontSize: 52, color: T.accent, fontStyle: 'italic', fontWeight: 300, lineHeight: 1 }}>{m.v}</div>
+              <div style={{ fontSize: 14, color: T.inkSoft, marginTop: 14, lineHeight: 1.5 }}>{m.l}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Screens gallery */}
+      <section style={{ padding: `${T.pad}px ${T.padX}px`, background: T.paperDeep, borderBottom: `1px solid ${T.border}` }}>
+        <Eyebrow>{lang === 'fr' ? 'Écrans' : 'Screens'}</Eyebrow>
+        <div style={{ marginTop: 64, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 48, justifyItems: 'center' }}>
+          {['home', 'detail', 'list'].map((variant, i) => (
+            <div key={variant} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 24 }}>
+              <PhoneScreen app={app} variant={variant} w={260} />
+              <div style={{ fontSize: 11, letterSpacing: 1.6, fontWeight: 600, textTransform: 'uppercase', color: T.inkSoft }}>
+                {screenLabels[lang][i]}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section style={{ padding: `${T.pad}px ${T.padX}px`, borderBottom: `1px solid ${T.border}` }}>
+        <Eyebrow>{lang === 'fr' ? (app.clientTestimonial ? 'Client & utilisateurs' : 'Utilisateurs') : (app.clientTestimonial ? 'Client & users' : 'Users')}</Eyebrow>
+        <div style={{ marginTop: 64, display: 'flex', flexDirection: 'column', gap: 40 }}>
+          {app.clientTestimonial && (
+            <div style={{ padding: '56px 64px', background: T.ink, borderRadius: 4, position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: -120, right: -120, opacity: 0.12, color: T.accent }}>
+                <OrbitGlyph size={480} ringColor="currentColor" dotColor={T.accent} tilt={-18} />
+              </div>
+              <div style={{ fontSize: 11, letterSpacing: 1.6, fontWeight: 600, textTransform: 'uppercase', color: T.accent, marginBottom: 32 }}>{lang === 'fr' ? 'Témoignage client' : 'Client testimonial'}</div>
+              <blockquote style={{ ...Serif, fontSize: 'clamp(22px, 2.8vw, 38px)', color: T.paper, margin: 0, lineHeight: 1.3, maxWidth: 840, position: 'relative' }}>
+                «&nbsp;{app.clientTestimonial.text[lang]}&nbsp;»
+              </blockquote>
+              <div style={{ marginTop: 40, display: 'flex', gap: 14, fontSize: 14, alignItems: 'center' }}>
+                <span style={{ fontWeight: 600, color: T.paper }}>{app.clientTestimonial.author}</span>
+                <span style={{ color: T.paper, opacity: 0.35 }}>—</span>
+                <span style={{ color: T.paper, opacity: 0.6 }}>{app.clientTestimonial.role}</span>
+              </div>
+            </div>
+          )}
+          <div style={{ display: 'grid', gridTemplateColumns: `repeat(${app.userTestimonials.length}, 1fr)`, gap: 28 }}>
+            {app.userTestimonials.map((t, i) => (
+              <div key={i} style={{ padding: '36px 40px', background: T.paperDeep, borderRadius: 4 }}>
+                <div style={{ fontSize: 13, color: T.accent, marginBottom: 16, letterSpacing: 1 }}>★★★★★</div>
+                <p style={{ fontSize: 16, lineHeight: 1.7, color: T.ink, margin: 0, fontFamily: '"Fraunces", serif', fontWeight: 400 }}>
+                  «&nbsp;{t.text[lang]}&nbsp;»
+                </p>
+                <div style={{ marginTop: 28, fontSize: 13, color: T.inkSoft }}>
+                  <span style={{ fontWeight: 600, color: T.ink }}>{t.author}</span>
+                  {' — '}{t.role}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Next project */}
+      <a href={`#/${nextApp.slug}`} style={{ display: 'block', padding: `${T.pad}px ${T.padX}px`, background: nextApp.color, textDecoration: 'none', borderBottom: `1px solid ${T.border}`, transition: 'opacity .2s' }}
+        onMouseEnter={e => e.currentTarget.style.opacity = 0.85}
+        onMouseLeave={e => e.currentTarget.style.opacity = 1}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <div style={{ fontSize: 11, letterSpacing: 1.6, fontWeight: 600, textTransform: 'uppercase', color: nextApp.accentTone, opacity: 0.45, marginBottom: 20 }}>{lang === 'fr' ? 'Projet suivant' : 'Next project'}</div>
+            <div style={{ ...Serif, fontSize: 'clamp(48px, 7vw, 112px)', color: nextApp.accentTone, lineHeight: 0.95 }}>{nextApp.name}</div>
+            <div style={{ fontSize: 15, color: nextApp.accentTone, opacity: 0.6, marginTop: 16 }}>{nextApp.tag}</div>
+          </div>
+          <div style={{ fontSize: 56, color: nextApp.accentTone, opacity: 0.4 }}>→</div>
+        </div>
+      </a>
+    </>
+  );
+}
+
+function HomePage() {
+  return (
+    <>
+      <HomeHero />
+      <HomeManifesto />
+      <HomeServices />
+      <HomePortfolio />
+      <HomeStack />
+      <HomeProcess />
+      <HomeStats />
+      <HomeTestimonials />
+      <HomeFAQ />
+      <HomeCTA />
+    </>
+  );
+}
+
+// ─── Root ─────────────────────────────────────────────────────────────────────
+
+function App() {
+  const [lang, setLang] = useState('fr');
+  const route = useRoute();
+  const projectApp = OrbitApps.find(a => route === `#/${a.slug}`);
+  return (
+    <LangCtx.Provider value={{ lang, setLang }}>
+      <div style={{ background: T.paper, color: T.ink, minHeight: '100vh', fontFamily: '"Inter", -apple-system, system-ui, sans-serif', letterSpacing: -0.05, lineHeight: 1.5 }}>
+        <SiteHeader />
+        <main>
+          {projectApp ? <ProjectPage app={projectApp} /> : <HomePage />}
+        </main>
+        <SiteFooter />
+      </div>
+    </LangCtx.Provider>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
