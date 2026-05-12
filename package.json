@@ -1,0 +1,14 @@
+{
+  "name": "orbit-site",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node --watch build.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-react": "^7.26.0",
+    "@babel/plugin-transform-react-jsx": "^7.26.0",
+    "terser": "^5.37.0"
+  }
+}
